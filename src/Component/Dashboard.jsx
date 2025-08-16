@@ -1,18 +1,55 @@
-// components/Dashboard.jsx
 import React from "react";
 
-export default function Dashboard({ total }) {
+export default function Dashboard({ total = 0, activeCourses = 0, successRate = 0 }) {
+  const stats = [
+    {
+      id: 1,
+      name: "Total Students",
+      value: total,
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        </svg>
+      ),
+      bg: "bg-blue-50 text-blue-600",
+    },
+    {
+      id: 2,
+      name: "Active Courses",
+      value: activeCourses,
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h18M3 12h18M3 17h18" />
+        </svg>
+      ),
+      bg: "bg-indigo-50 text-indigo-600",
+    },
+    {
+      id: 3,
+      name: "Success Rate",
+      value: `${successRate}%`,
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
+        </svg>
+      ),
+      bg: "bg-green-50 text-green-600",
+    },
+  ];
+
   return (
-    <div className="mb-8">
-      <div className="rounded-2xl shadow-lg overflow-hidden bg-white">
-        <div className="bg-gradient-to-r from-indigo-500 to-blue-500 p-6 text-white text-center">
-          <h2 className="text-3xl font-bold mb-2 tracking-tight drop-shadow">Dashboard</h2>
-        </div>
-        <div className="p-8 text-center">
-          <p className="text-2xl font-semibold text-gray-800 mb-2">Welcome!</p>
-          <p className="text-lg text-gray-600">You have <span className="font-bold text-indigo-600 text-2xl">{total}</span> students in the system.</p>
-        </div>
+    <section className="mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {stats.map((stat) => (
+          <div key={stat.id} className="card-surface p-5 flex items-center gap-4">
+            <div className={`p-3 rounded-lg ${stat.bg} shadow-sm`}>{stat.icon}</div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-gray-900">{stat.value}</div>
+              <div className="text-sm text-gray-500 font-medium">{stat.name}</div>
+            </div>
+          </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 }
